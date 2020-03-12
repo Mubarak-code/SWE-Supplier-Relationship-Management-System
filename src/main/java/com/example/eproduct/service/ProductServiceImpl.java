@@ -18,9 +18,21 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepo, SupplierRepository supplierRepo){
+    public ProductServiceImpl(ProductRepository productRepo, SupplierRepository supplierRepo) {
         this.productRepo = productRepo;
         this.supplierRepo = supplierRepo;
+
+    }
+
+    public Product getProduct(Long id) {
+        Product product = productRepo.findById(id).orElseGet(Product::new);
+        return product;
+
+    }
+
+    @Override
+    public void delete(Long id) {
+        productRepo.deleteById(id);
 
     }
 
@@ -47,10 +59,7 @@ public class ProductServiceImpl implements ProductService {
         p.setUnitPrice(product.getUnitPrice());
         p.setQuantityInStock(product.getQuantityInStock());
         p.setSupplier(product.getSupplier());
-
-
         productRepo.save(p);
-
-
     }
 }
+

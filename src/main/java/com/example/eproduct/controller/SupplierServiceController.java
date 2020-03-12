@@ -26,13 +26,41 @@ public class SupplierServiceController {
 
     }
 
+    @GetMapping("/getSupplier")
+    public ModelAndView getSupplier(@RequestParam Integer id){
+        Supplier supplier = supplierService.getSupplier(id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("updateSupplier", supplier);
+        modelAndView.setViewName("supplier/updateForm");
+//
+        return modelAndView;
+    }
+    @PostMapping("update/{id}")
+    public ModelAndView updateSupplier(@PathVariable Integer id, @ModelAttribute Supplier supplier){
+        supplierService.updateSupplier(id, supplier);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/getallsuppliers");
+        return modelAndView;
+    }
+
+    @GetMapping("delete/{id}")
+    public ModelAndView deleteSupplier(@PathVariable Integer id){
+        supplierService.deleteSupplier(id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/getallsuppliers");
+        return modelAndView;
+    }
+
     @PostMapping("/newsupplier")
     public ModelAndView addNewSupplier(@ModelAttribute Supplier supplier){
         ModelAndView modelAndView = new ModelAndView();
         supplierService.addNewSupplier(supplier);
-        modelAndView.setViewName("supplier/success");
+        modelAndView.setViewName("redirect:/getallsuppliers");
         return modelAndView;
     }
+
+
+
     @GetMapping("/getallsuppliers")
     public ModelAndView getAllSuppliers(){
         List<Supplier> allSuppliers = supplierService.getAllSuppliers();

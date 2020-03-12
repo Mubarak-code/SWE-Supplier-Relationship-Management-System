@@ -8,32 +8,38 @@
     <meta name="author" content="O. Kalu">
     <link rel="icon" href="favicon.ico">
     <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.2/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-EmRcsPP774S9MOi4ywB+JXUWjYnBdyInMzG2XsC5siZEUpexqxOMJW358dCYEjPu" crossorigin="anonymous">
-    <title>supplier form</title>
+    <title>update form</title>
 </head>
 <body>
 <div class = "container">
-    <h3>  Supplier Registration Form  </h3>
-
-    <form th:action="@{/newsupplier}"  th:object="${supplier}" method="post">
+    <h3> Update Form </h3>
+    <!--                <a th:href="@{'/appel/edit/' + ${appel.id}}"-->
+    <form th:action="@{'/update/' +${updateSupplier.getSupplierId()}}"  th:object="${updateSupplier}" method="post">
 
         <div class="form-group">
 
-            <label for="StudentNumber">Supplier Number</label>
-            <input type="text" class="form-control" id="StudentNumber" placeholder=" required" th:field="*{supplierNumber}"  >
+            <label for="SupplierId"></label>
+            <input type="text" class="form-control" id="SupplierId" placeholder=" required" th:field="*{supplierId}" hidden >
         </div>
         <div class="form-group">
-            <label for ="FirstName">Supplier Name</label>
-            <input type="text" class="form-control" id="FirstName" placeholder="required" th:field ="*{name}" >
+
+            <label for="SupplierNumber">Supplier Number</label>
+            <input type="text" class="form-control" id="SupplierNumber" placeholder=" required" th:field="*{supplierNumber}" required >
         </div>
         <div class="form-group">
-            <label for ="MiddleName" >Contact Number</label>
-            <input type="text" class="form-control" id="MiddleName" placeholder="optional" th:field="*{contactPhoneNumber}" >
+            <label for ="SupplierName">Supplier Name</label>
+            <input type="text" class="form-control" id="SupplierName" placeholder="required" th:field ="*{name}" >
+        </div>
+        <div class="form-group">
+            <label for ="ContactNumber" >Contact phone Number</label>
+            <input type="text" class="form-control" id="ContactNumber" placeholder="optional" th:field="*{contactPhoneNumber}" >
         </div>
 
         <!--    <div class="form-group">-->
         <!--        <label for="international"> International</label>-->
         <!--        <input type="text" class="form-control" id="international" placeholder="required" th:field ="*{international}" >-->
         <!--    </div>-->
+
         <!--    <div class="form-check">-->
         <!--        <ul>-->
         <!--            "book, iter : ${books}"-->
@@ -47,8 +53,8 @@
 
         <!--    </div>-->
         <p></p>
-        <a  class="btn btn-primary" href="/" >Cancel</a> &nbsp;
         <button type="submit" class="btn btn-primary">Submit</button>
+        <a  class="btn btn-primary" href="/getallsuppliers">Cancel </a>
     </form>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

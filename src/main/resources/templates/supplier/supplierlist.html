@@ -28,7 +28,7 @@
             </ul>
 
 
-                <button class="btn btn-secondary my-2 my-sm-0" type="button" onclick=""> Add New Supplier</button>
+                <a class="btn btn-secondary my-2 my-sm-0" href="/supplierform" > Add New Supplier</a>
 
 
         </div>
@@ -48,6 +48,7 @@
             <th scope = "col"> Supplier Number</th>
             <th scope = "col">  Name</th>
             <th scope = "col"> Contact Phone</th>
+            <th scope = "col"> Action</th>
 
         </tr>
 
@@ -57,16 +58,19 @@
         <tr th:each="supplier, iter : ${getAllSuppliers}">
             <th scope = "row" th:text = "${(iter.count)}"></th>
 
-            <td th:text = "${(supplier.getSupplierNumber())}"></td>
+            <td>
+                <a th:href="@{/getSupplier(id=${(supplier.getSupplierId())})}" th:text="${(supplier.getSupplierNumber())}">  </a>
+<!--                <a th:href="@{/getStudent(id=${(student.getStudentId())})}" th:text="${(supplier.getSupplierNumber())}">  </a>-->
+            </td>
             <td th:text = "${(supplier.getName())}"></td>
             <td th:text = "${(supplier.getContactPhoneNumber())}"></td>
-<!--            <td><a  th:href="@{/getStudent(id=${(student.getStudentId())})}">Edit</a> &nbsp;&nbsp; <a th:href="@{/delete/{id}(id=${student.getStudentId()})}" >Delete</a></td>-->
+            <td><a class="btn btn-primary" th:href="@{/getSupplier(id=${(supplier.getSupplierId())})}">Edit</a> <a class="btn btn-primary" th:href="@{/delete/{id}(id=${(supplier.getSupplierId())})}">Delete</a> </td>
 
 
-            <!--            <form th:action="@{delete_user}" method="post" th:object="${user}">-->
-            <!--                <input type="hidden" th:field="${user.personId}"/>-->
-            <!--                <button type="submit" value="Submit" class="btn btn-danger">Delete</button>-->
-            <!--            </form>-->
+<!--                        <form th:action="@{delete_user}" method="post" th:object="${user}">-->
+<!--                            <input type="hidden" th:field="${user.personId}"/>-->
+<!--                            <button type="submit" value="Submit" class="btn btn-danger">Delete</button>-->
+<!--                        </form>-->
         </tr>
 
         <tr th:if ="${(getAllSuppliers.size() < 1)}">

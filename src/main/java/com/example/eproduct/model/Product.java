@@ -21,7 +21,7 @@ public class Product {
     private Integer quantityInStock;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateSupplied;
-    @OneToOne
+    @ManyToOne
     @JoinColumn
     private Supplier supplier;
 

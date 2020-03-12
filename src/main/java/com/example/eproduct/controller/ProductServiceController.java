@@ -24,20 +24,9 @@ public class ProductServiceController {
         ModelAndView modelAndView = new ModelAndView();
         List<Supplier> allSupplier = supplierService.getAllSuppliers();
         modelAndView.addObject("newProduct", new Product());
-        modelAndView.addObject("allSuppliers", allSupplier);
+       modelAndView.addObject("allSuppliers", allSupplier);
         modelAndView.setViewName("product/productform");
 
-        return modelAndView;
-    }
-
-    @GetMapping("/allproduct")
-    public ModelAndView getAllProduct(){
-        ModelAndView modelAndView = new ModelAndView();
-        List<Product> allProduct = productService.getAllProduct();
-        List<Supplier> allSupplier = supplierService.getAllSuppliers();
-        modelAndView.addObject("allProduct", allProduct);
-        modelAndView.addObject("allSupplier", allSupplier);
-        modelAndView.setViewName("product/productlist");
         return modelAndView;
     }
 
@@ -45,13 +34,46 @@ public class ProductServiceController {
     public ModelAndView newProduct(@ModelAttribute Product product){
         ModelAndView modelAndView = new ModelAndView();
         productService.newProduct(product);
-        modelAndView.setViewName("supplier/success");
+        modelAndView.setViewName("redirect:/allproduct");
         return  modelAndView;
     }
 
-    @PutMapping("/update/{id}")
-    public void updateProduct(@PathVariable Long id, Product product){
-
-        productService.updateProduct(id,product);
+    @GetMapping("/getProduct")
+    public ModelAndView getProduct(@RequestParam Long id){
+        Product product = productService.getProduct(id);
+        List<Supplier> suppliers = supplierService.getAllSuppliers();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("updateProduct", product);
+        modelAndView.addObject("allSuppliers", suppliers);
+        modelAndView.setViewName("product/updateForm");
+        return modelAndView;
     }
+
+    @PostMapping("updateProduct/{id}")
+    public ModelAndView updateProduct(@PathVariable Long id, @ModelAttribute Product product){
+        productService.updateProduct(id, product);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/allproduct");
+        return modelAndView;
+    }
+
+    @GetMapping("/allproduct")
+    public ModelAndView getAllProduct(){
+        ModelAndView modelAndView = new ModelAndView();
+        List<Product> allProduct = productService.getAllProduct();
+        modelAndView.addObject("allProduct", allProduct);
+        modelAndView.setViewName("product/productlist");
+        return modelAndView;
+    }
+
+    @GetMapping("deleteProduct/{id}")
+    public ModelAndView deleteProduct(@PathVariable Long id){
+        productService.delete(id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/allproduct");
+        return modelAndView;
+    }
+
+
+
 }

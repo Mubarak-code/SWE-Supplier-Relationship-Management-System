@@ -28,7 +28,7 @@
             </ul>
 
 
-                <button class="btn btn-secondary my-2 my-sm-0" type="button" onclick=""> Add New Product</button>
+                <a class="btn btn-secondary my-2 my-sm-0" href="/productform"> Add New Product</a>
 
 
         </div>
@@ -51,6 +51,7 @@
             <th scope = "col"> Quantity in Stock</th>
             <th scope = "col"> Date Supplied</th>
             <th scope = "col"> Supplier</th>
+            <th scope=  "col">Action</th>
 
         </tr>
 
@@ -60,13 +61,15 @@
         <tr th:each="product, iter : ${allProduct}">
             <th scope = "row" th:text = "${(iter.count)}"></th>
             
-            <td th:text = "${(product.getProductNumber())}"></td>
+            <td >
+                <a th:href="@{/getProduct(id=${(product.getProductId())})}" th:text = "${(product.getProductNumber())}"> </a>
+            </td>
             <td th:text = "${(product.getName())}"></td>
             <td th:text = "${(product.getUnitPrice())}"></td>
             <td th:text = "${(product.getQuantityInStock())}"></td>
             <td th:text = "${(product.getDateSupplied())}"></td>
-            <td th:text = "${product.getSupplier().getName()}"></td>
-<!--            <td><a  th:href="@{/getStudent(id=${(student.getStudentId())})}">Edit</a> &nbsp;&nbsp; <a th:href="@{/delete/{id}(id=${student.getStudentId()})}" >Delete</a></td>-->
+            <td th:text = "${product.supplier.name}" ></td>
+            <td><a class="btn btn-primary" th:href="@{/getProduct(id=${(product.getProductId())})}">Edit</a> &nbsp;&nbsp; <a class="btn btn-primary" th:href="@{/deleteProduct/{id}(id=${product.getProductId()})}" >Delete</a></td>
 
 
             <!--            <form th:action="@{delete_user}" method="post" th:object="${user}">-->
@@ -77,7 +80,7 @@
 
         <tr th:if ="${(allProduct.size() < 1)}">
 
-            <td colspan = "9" style ="text-align :center">No Record Available </td>
+            <td colspan = "8" style ="text-align :center">No Record Available </td>
         </tr>
         </tbody>
 

@@ -19,11 +19,15 @@
         <div class="form-group">
 
             <label for="StudentNumber">Supplier Number</label>
-            <input type="text" class="form-control" id="StudentNumber" placeholder=" required" th:field="*{supplierNumber}"  >
+            <input type="text" class="form-control" id="StudentNumber" placeholder=" required" th:field="*{supplierNumber}"
+                   pattern=".{3,}"
+                   title="Must contain at least 3 or more characters">
         </div>
         <div class="form-group">
             <label for ="FirstName">Supplier Name</label>
-            <input type="text" class="form-control" id="FirstName" placeholder="required" th:field ="*{name}" >
+            <input type="text" class="form-control" id="FirstName" placeholder="required" th:field ="*{name}"
+                   pattern="[a-z][A-Z]"
+                   title="Must contain only alphabets">
         </div>
         <div class="form-group">
             <label for ="MiddleName" >Contact Number</label>
